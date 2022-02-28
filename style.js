@@ -1,5 +1,6 @@
 
 const eventHandler = () => {
+    document.getElementById('main').innerHTML = "";
     const input = document.getElementById('input-fild');
     const inputValue = input.value;
     const url = `https://www.thesportsdb.com/api/v1/json/2/searchplayers.php?p=${inputValue}`;
@@ -34,6 +35,7 @@ const displayData = players => {
 }
 
 const display = (id) => {
+    document.getElementById('input-fild').innerHTML = "";
     const url=`https://www.thesportsdb.com/api/v1/json/2/lookupplayer.php?id=${id}`
     fetch(url)
         .then(res => res.json())
@@ -42,10 +44,24 @@ const display = (id) => {
 
 
 const Detalic = (infro) => {
-    const contanir = document.getElementById('container');
+    // console.log(infro.strGender)
+    if (infro.strGender=='Male') {
+        document.getElementById('male').style.display = 'block'
+        document.getElementById('femal').style.display='none'
+
+    } else {
+        document.getElementById('male').style.display = 'none'
+        document.getElementById('femal').style.display='block'
+    }
+    
+      
+ 
+       
+    const contanir = document.getElementById('div-contanir');
     const div = document.createElement('div');
     div.innerHTML = `
     <h3>Name:${infro.strPlayer}</h3>
     `
+  
     contanir.appendChild(div)
 }
