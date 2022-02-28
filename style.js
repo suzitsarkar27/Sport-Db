@@ -5,12 +5,36 @@ const eventHandler = () => {
     const inputValue = input.value;
     const url = `https://www.thesportsdb.com/api/v1/json/2/searchplayers.php?p=${inputValue}`;
     fetch(url)
-        .then(res => res.json())
-        .then(data => displayData(data.player))
-        input.value ="";
+    .then(res=>res.json())
+        .then(data => {
+            
+            if (data.player == null) {
+                
+                const error = document.getElementById('error')
+                error.innerHTML = `
+                <h3> Plesse type a valid number</h3>
+                `
+            } else {
+                displayData(data.player)
+                // document.getElementById('spener').style.display = 'none'
+              
+            }
+        })
+    input.value = "";
 }
 
+
+    
+
 const displayData = players => {
+   
+    if (players == true) {
+        console.log('amar')
+        document.getElementById('spener').style.display = 'block'
+    } else {
+        console.log('romar')
+        document.getElementById('spener').style.display = 'block'
+   }
     const main = document.getElementById('main');
     for (const player of players) {
         const div = document.createElement('div')
@@ -35,7 +59,8 @@ const displayData = players => {
 }
 
 const display = (id) => {
-    document.getElementById('input-fild').innerHTML = "";
+    // document.getElementById('input-fild').innerHTML = "";
+    
     const url=`https://www.thesportsdb.com/api/v1/json/2/lookupplayer.php?id=${id}`
     fetch(url)
         .then(res => res.json())
